@@ -44,7 +44,7 @@ with col_btn:
     st.link_button("🏠 ke Menu Simulasi", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=True)
 
 with col_title:
-    st.subheader("Maintenance-Operational Cost Relationship")
+    st.subheader("Maintenance-Operational Cost Diagram")
 
 st.divider()
 
