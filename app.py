@@ -75,7 +75,7 @@ process_phases = [
     # --- FASE 2: LAJU ALIRAN SISTEM (FLOWS) ---
     [
         {'label': 'Trip Occurrence Rate', 'tank_area': [271, 93, 428, 169]},
-        {'label': 'Continuous Cost Flow', 'tank_area': [779, 200, 600, 250]}
+        {'label': 'Cumulative Trip Frequency', 'tank_area': [465, 75, 606, 161]}
     ],
     
     # --- FASE 3: AKUMULASI STOK UTAMA (STOCKS) ---
