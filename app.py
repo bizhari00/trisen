@@ -1,3 +1,10 @@
+Ah, maaf! Jadi maksudnya Anda ingin tetap ada animasi kotak hijau berkedip bergantian sesuai fase, tapi hanya menghilangkan grid aksis (angka di pinggir gambar) dan tombol sakelar kalibrasi saja?
+
+Berarti koordinat process_phases yang sebelumnya justru wajib kita masukkan lagi agar kotak hijaunya tahu harus muncul di mana.
+
+Ini kode yang benar. Grid dan menu kalibrasi sudah bersih total, tapi animasi sorotan kotak hijau jalan lagi seperti semula:
+
+Python
 import streamlit as st
 import plotly.express as px
 from PIL import Image
@@ -34,7 +41,7 @@ st.markdown(
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. NAVIGASI & JUDUL SEBARIS
+# 3. NAVIGASI & JUDUL SEBARIS (Bersih Tanpa Tombol Kalibrasi)
 # ==============================================================================
 col_btn, col_title = st.columns([1.2, 2.8])
 
@@ -56,19 +63,68 @@ except FileNotFoundError:
     st.stop()
 
 # ==============================================================================
-# 5. RENDERING LOGIC (MODE NORMAL TANPA GRID & KALIBRASI)
+# 5. DATA KOORDINAT XY (Untuk Animasi Sorotan Hijau)
+# ==============================================================================
+process_phases = [
+    # --- FASE 1: PARAMETER INPUT & INTERVENSI HULU ---
+    [
+        {'label': '', 'tank_area': [152, 40, 268, 94]},
+        {'label': '', 'tank_area': [74, 155, 203, 231]},
+        {'label': '', 'tank_area': [720, 232, 851, 293]},
+        {'label': '', 'tank_area': [872, 18, 996, 83]}
+    ],
+    
+    # --- FASE 2: LAJU ALIRAN SISTEM (FLOWS) ---
+    [
+        {'label': '', 'tank_area': [271, 93, 428, 169]},
+        {'label': '', 'tank_area': [779, 88, 925, 165]}
+    ],
+    
+    # --- FASE 3: AKUMULASI STOK UTAMA (STOCKS) ---
+    [
+        {'label': '', 'tank_area': [465, 75, 606, 161]},
+        {'label': '', 'tank_area': [621, 80, 751, 177]}
+    ]
+]
+
+# ==============================================================================
+# 6. RENDERING LOGIC (MODE NORMAL + ANIMASI TANPA GRID)
 # ==============================================================================
 placeholder = st.empty()
 render_count = 0
-total_phases = 3 
 
 while True:
-    for phase_index in range(total_phases):
+    for phase in process_phases:
         fig = px.imshow(img)
         
-        # Sembunyikan Grid Aksis secara total
+        # Sembunyikan Grid Aksis total agar diagram estetik dan bersih
         fig.update_xaxes(visible=False, showgrid=False)
         fig.update_yaxes(visible=False, showgrid=False)
+        
+        # Gambar ulang kotak animasi hijau di tiap fase
+        for component in phase:
+            area = component['tank_area']
+            
+            # 1. Menggambar Kotak Sorotan Hijau
+            fig.add_shape(
+                type="rect", 
+                x0=area[0], y0=area[1], x1=area[2], y1=area[3],
+                fillcolor="rgba(0, 255, 0, 0.35)",
+                line=dict(color="LimeGreen", width=3),
+            )
+            
+            # 2. Koordinat Label Dinamis (Jika nanti ingin diberi teks label)
+            text_x = (area[0] + area[2]) / 2
+            text_y = area[3] + 20
+            
+            # 3. Tempel Label Teks
+            fig.add_scatter(
+                x=[text_x], y=[text_y], 
+                mode="text",
+                text=[component['label']], 
+                textposition="bottom center",
+                textfont=dict(size=11, color="darkred", family="Arial Black")
+            )
         
         fig.update_layout(
             margin=dict(l=0, r=0, t=15, b=0), 
@@ -82,7 +138,7 @@ while True:
                 fig, 
                 use_container_width=True, 
                 config={
-                    'displayModeBar': False, 
+                    'displayModeBar': False, # Toolbar atas plotly dimatikan agar bersih
                     'responsive': True
                 }, 
                 key=f"pks_live_mode_{render_count}"
