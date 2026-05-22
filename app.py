@@ -1,3 +1,8 @@
+Tentu, ini adalah kode yang sudah dibersihkan. Semua logika yang berkaitan dengan Mode Kalibrasi, checkbox di navbar, sumbu/grid overlay, serta kotak hijau animasi (fig.add_shape & fig.add_scatter) telah dihapus.
+
+Sekarang kodenya murni memuat gambar background SFDintro.png secara bersih dalam loop animasi (jika Anda masih membutuhkan transisi fase gambar murni), tanpa gangguan visual grid maupun komponen kalibrasi.
+
+Python
 import streamlit as st
 import plotly.express as px
 from PIL import Image
@@ -34,19 +39,15 @@ st.markdown(
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. NAVIGASI & JUDUL SEBARIS
+# 3. NAVIGASI & JUDUL SEBARIS (Tanpa Checkbox Kalibrasi)
 # ==============================================================================
-col_btn, col_title, col_calib = st.columns([1.2, 1.8, 1.0])
+col_btn, col_title = st.columns([1.2, 2.8])
 
 with col_btn:
     st.link_button("🏠 ke Menu Simulasi", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=True)
 
 with col_title:
     st.subheader("Tri-Sen Syntegra Technology")
-
-with col_calib:
-    # FITUR BARU: Sakelar Mode Kalibrasi Grid
-    is_calibration_mode = st.checkbox("📐 Mode Kalibrasi (Grid ON)", value=False, help="Aktifkan untuk melihat koordinat X/Y murni dan menghentikan loop animasi.")
 
 st.divider()
 
@@ -55,149 +56,44 @@ st.divider()
 # ==============================================================================
 try:
     img = Image.open("SFDintro.png") 
-except FileNotFoundError:
-    st.error("File 'diagram.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
+} except FileNotFoundError:
+    st.error("File 'SFDintro.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
     st.stop()
 
 # ==============================================================================
-# 5. DATA KOORDINAT XY MURNI (Hasil Kalibrasi Pas)
-#    Format tank_area: [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir]
-# ==============================================================================
-process_phases = [
-    # --- FASE 1: PARAMETER INPUT & INTERVENSI HULU ---
-    [
-        {'label': '', 'tank_area': [152, 40, 268, 94]},
-        {'label': '', 'tank_area': [74, 155, 203, 231]},
-        {'label': '', 'tank_area': [720, 232, 851, 293]},
-        {'label': '', 'tank_area': [872, 18, 996, 83]}
-    ],
-    
-    # --- FASE 2: LAJU ALIRAN SISTEM (FLOWS) ---
-    [
-        {'label': '', 'tank_area': [271, 93, 428, 169]},
-        {'label': '', 'tank_area': [779, 88, 925, 165]}
-    ],
-    
-    # --- FASE 3: AKUMULASI STOK UTAMA (STOCKS) ---
-    [
-        {'label': '', 'tank_area': [465, 75, 606, 161]},
-        {'label': '', 'tank_area': [621, 80, 751, 177]}
-    ]
-]
-
-# ==============================================================================
-# 6. RENDERING LOGIC (ANIMASI LIVE vs MODE KALIBRASI)
+# 5. RENDERING LOGIC (MODE NORMAL TANPA GRID & KALIBRASI)
 # ==============================================================================
 placeholder = st.empty()
+render_count = 0
 
-if is_calibration_mode:
-    # --------------------------------------------------------------------------
-    # MODE KALIBRASI: Tampilkan Semua Kotak Sekaligus + Grid Aktif
-    # --------------------------------------------------------------------------
-    fig = px.imshow(img)
-    
-    # Munculkan Sumbu Aksis dan Grid Garis untuk Mapping Manual
-    fig.update_xaxes(visible=True, showgrid=True, gridcolor="rgba(255, 255, 255, 0.3)", ticks="outside")
-    fig.update_yaxes(visible=True, showgrid=True, gridcolor="rgba(255, 255, 255, 0.3)", ticks="outside")
-    
-    # Render seluruh komponen dari semua fase sekaligus agar bisa dicocokkan posisinya
-    for phase in process_phases:
-        for component in phase:
-            area = component['tank_area']
-            
-            # Gambar Kotak Panduan Pengarah
-            fig.add_shape(
-                type="rect", 
-                x0=area[0], y0=area[1], x1=area[2], y1=area[3],
-                fillcolor="rgba(255, 165, 0, 0.2)", # Warna oranye transparan saat kalibrasi
-                line=dict(color="Orange", width=2, dash="dash"),
-            )
-            
-            text_x = (area[0] + area[2]) / 2
-            text_y = area[3] + 20
-            
-            fig.add_scatter(
-                x=[text_x], y=[text_y], 
-                mode="text",
-                text=[component['label']], 
-                textposition="bottom center",
-                textfont=dict(size=10, color="orange", family="Arial Black")
-            )
-            
-    fig.update_layout(
-        margin=dict(l=10, r=10, t=30, b=10), 
-        height=650, # Sedikit lebih tinggi agar sumbu koordinat bawah kelihatan jelas
-        autosize=True,
-        showlegend=False
-    )
-    
-    with placeholder.container():
-        st.info("💡 **Mode Kalibrasi Aktif**: Arahkan kursor (*hover*) pada sudut diagram untuk melihat koordinat asli $X$ dan $Y$. Salin nilai tersebut ke dalam variabel `process_phases` di kode script Anda.")
-        st.plotly_chart(
-            fig, 
-            use_container_width=True, 
-            config={
-                'displayModeBar': True, # Mengaktifkan toolbar zoom/pan bawaan Plotly
-                'scrollZoom': True,
-                'responsive': True
-            },
-            key="pks_calibration_grid"
+# Jumlah total fase (berdasarkan struktur data Anda sebelumnya ada 3 fase)
+total_phases = 3 
+
+while True:
+    for phase_index in range(total_phases):
+        fig = px.imshow(img)
+        
+        # Sembunyikan Grid Aksis secara total untuk estetika bersih
+        fig.update_xaxes(visible=False, showgrid=False)
+        fig.update_yaxes(visible=False, showgrid=False)
+        
+        fig.update_layout(
+            margin=dict(l=0, r=0, t=15, b=0), 
+            height=550,
+            autosize=True,
+            showlegend=False
         )
-
-else:
-    # --------------------------------------------------------------------------
-    # MODE NORMAL: Loop Animasi Berjalan Bergantian Sesuai Urutan Fase
-    # --------------------------------------------------------------------------
-    render_count = 0
-    while True:
-        for phase in process_phases:
-            fig = px.imshow(img)
-            
-            # Sembunyikan Grid Aksis untuk Estetika Live Dashboard
-            fig.update_xaxes(visible=False, showgrid=False)
-            fig.update_yaxes(visible=False, showgrid=False)
-            
-            for component in phase:
-                area = component['tank_area']
-                
-                # 1. Menggambar Kotak Sorotan Hijau
-                fig.add_shape(
-                    type="rect", 
-                    x0=area[0], y0=area[1], x1=area[2], y1=area[3],
-                    fillcolor="rgba(0, 255, 0, 0.35)",
-                    line=dict(color="LimeGreen", width=3),
-                )
-                
-                # 2. Koordinat Label Dinamis
-                text_x = (area[0] + area[2]) / 2
-                text_y = area[3] + 20
-                
-                # 3. Tempel Label Teks
-                fig.add_scatter(
-                    x=[text_x], y=[text_y], 
-                    mode="text",
-                    text=[component['label']], 
-                    textposition="bottom center",
-                    textfont=dict(size=11, color="darkred", family="Arial Black")
-                )
-            
-            fig.update_layout(
-                margin=dict(l=0, r=0, t=15, b=0), 
-                height=550,
-                autosize=True,
-                showlegend=False
+        
+        with placeholder.container():
+            st.plotly_chart(
+                fig, 
+                use_container_width=True, 
+                config={
+                    'displayModeBar': False, # Mematikan toolbar Plotly agar bersih
+                    'responsive': True
+                }, 
+                key=f"pks_live_mode_{render_count}"
             )
-            
-            with placeholder.container():
-                st.plotly_chart(
-                    fig, 
-                    use_container_width=True, 
-                    config={
-                        'displayModeBar': False, 
-                        'responsive': True
-                    }, 
-                    key=f"pks_live_mode_{render_count}"
-                )
-            
-            render_count += 1
-            time.sleep(3.0)
+        
+        render_count += 1
+        time.sleep(3.0)
