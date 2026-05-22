@@ -7,7 +7,7 @@ import time
 # 1. KONFIGURASI HALAMAN UTAMA (Wajib Paling Atas)
 # ==============================================================================
 st.set_page_config(
-    page_title="Pabrik PKS - Mode Live",
+    page_title="Trisen Syntegra - Mode Live",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -66,8 +66,8 @@ except FileNotFoundError:
 process_phases = [
     # --- FASE 1: PARAMETER INPUT & INTERVENSI HULU ---
     [
-        {'label': 'Disturbance Occurrence', 'tank_area': [152, 40, 268, 94]},
-        {'label': 'Efektif Desain', 'tank_area': [100, 200, 200, 250]},
+        {'label': 'Disturbance', 'tank_area': [152, 40, 268, 94]},
+        {'label': 'Design Effectiveness', 'tank_area': [74, 155, 203, 231]},
         {'label': 'Biaya Rugi Downtime', 'tank_area': [300, 100, 400, 150]},
         {'label': 'Biaya Maintenance', 'tank_area': [300, 200, 400, 250]}
     ],
