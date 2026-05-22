@@ -75,12 +75,12 @@ process_phases = [
     # --- FASE 2: LAJU ALIRAN SISTEM (FLOWS) ---
     [
         {'label': 'Trip Occurrence Rate', 'tank_area': [271, 93, 428, 169]},
-        {'label': 'Aliran Biaya Operasional', 'tank_area': [500, 200, 600, 250]}
+        {'label': 'Continuous Cost Flow', 'tank_area': [779, 200, 600, 250]}
     ],
     
     # --- FASE 3: AKUMULASI STOK UTAMA (STOCKS) ---
     [
-        {'label': 'Kumulatif Trip', 'tank_area': [700, 100, 800, 150]},
+        {'label': 'Kumulatif Trip', 'tank_area': [700, 88, 925, 165]},
         {'label': 'Total Cost Ownership', 'tank_area': [700, 200, 800, 250]}
     ]
 ]
