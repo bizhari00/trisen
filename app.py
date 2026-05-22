@@ -68,7 +68,7 @@ process_phases = [
     [
         {'label': 'Disturbance', 'tank_area': [152, 40, 268, 94]},
         {'label': 'Design Effectiveness', 'tank_area': [74, 155, 203, 231]},
-        {'label': 'Downtime Loss Cost', 'tank_area': [716, 232, 400, 150]},
+        {'label': 'Downtime Loss Cost', 'tank_area': [720, 232, 851, 293]},
         {'label': 'Maintenance Cost', 'tank_area': [872, 18, 996, 83]}
     ],
     
