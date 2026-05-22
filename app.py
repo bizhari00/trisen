@@ -68,8 +68,8 @@ process_phases = [
     [
         {'label': 'Disturbance', 'tank_area': [152, 40, 268, 94]},
         {'label': 'Design Effectiveness', 'tank_area': [74, 155, 203, 231]},
-        {'label': 'Biaya Rugi Downtime', 'tank_area': [300, 100, 400, 150]},
-        {'label': 'Biaya Maintenance', 'tank_area': [300, 200, 400, 250]}
+        {'label': 'Downtime Loss Cost', 'tank_area': [716, 232, 400, 150]},
+        {'label': 'Maintenance Cost', 'tank_area': [872, 18, 996, 83]}
     ],
     
     # --- FASE 2: LAJU ALIRAN SISTEM (FLOWS) ---
