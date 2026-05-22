@@ -1,5 +1,8 @@
+Tentu, ini adalah kode full script yang sudah digabungkan dengan modifikasi gaya (styling) pada judul dan tombol sesuai permintaan Anda.
 
+Anda bisa langsung menyalin seluruh kode di bawah ini:
 
+Python
 import streamlit as st
 import plotly.express as px
 from PIL import Image
@@ -36,15 +39,39 @@ st.markdown(
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. NAVIGASI & JUDUL SEBARIS (Bersih Tanpa Tombol Kalibrasi)
+# 3. NAVIGASI & JUDUL SEBARIS (Custom Font Size & Style)
 # ==============================================================================
-col_btn, col_title = st.columns([1.2, 2.8])
+# Menambahkan CSS custom untuk memperbesar & menebalkan tombol Tri-Sen,
+# serta membuat font judul "Maintenance-Operational Cost Diagram" menjadi regular.
+st.markdown(
+    """
+    <style>
+    /* Menargetkan teks di dalam link button agar Besar & Bold */
+    .stLinkButton > a p {
+        font-size: 20px !important; 
+        font-weight: bold !important; 
+    }
+    /* Mengatur teks judul diagram agar berukuran Regular */
+    .custom-title {
+        font-size: 16px !important; 
+        font-weight: normal !important; 
+        color: #31333F;
+        margin-top: 10px; /* Menyelaraskan tinggi vertikal dengan tombol */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Rasio kolom disesuaikan ke [1.5, 2.5] agar tombol yang membesar tidak terpotong
+col_btn, col_title = st.columns([1.5, 2.5])
 
 with col_btn:
-    st.link_button("🏠Tri-Sen Technology Open Here", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=True)
+    st.link_button("🏠 Tri-Sen Technology Open Here", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=True)
 
 with col_title:
-    st.subheader("Maintenance-Operational Cost Diagram")
+    # Menggunakan HTML markdown khusus menggantikan st.subheader agar teks bisa diatur regular
+    st.markdown('<p class="custom-title">Maintenance-Operational Cost Diagram</p>', unsafe_allow_html=True)
 
 st.divider()
 
