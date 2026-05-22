@@ -1,4 +1,7 @@
 import streamlit as st
+import plotly.express as px
+from PIL import Image
+import time
 
 # ==============================================================================
 # 1. KONFIGURASI HALAMAN UTAMA (Wajib Paling Atas)
@@ -25,10 +28,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-import plotly.express as px
-from PIL import Image
-import time
-
 # ==============================================================================
 # 2. STRATEGI TURUNKAN LAYOUT 
 # ==============================================================================
@@ -51,73 +50,70 @@ st.divider()
 # 4. MEMUAT BACKGROUND IMAGE PKS
 # ==============================================================================
 try:
-    img = Image.open("trisen.png")
+    # Ganti "trisen.png" dengan nama file gambar diagram Anda (misalnya "diagram.png")
+    # Pastikan file gambar tersebut ada di direktori yang sama dengan skrip Streamlit ini.
+    img = Image.open("diagram.png") 
 except FileNotFoundError:
-    st.error("File 'pks.png' tidak ditemukan. Pastikan file gambar ada di root repository GitHub Anda.")
+    st.error("File 'diagram.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
     st.stop()
 
 # ==============================================================================
-# 5. DATA KOORDINAT XY MURNI (Hasil Kalibrasi Pas)
+# 5. DATA KOORDINAT XY MURNI (Perlu Kalibrasi)
 #    Format tank_area: [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir]
+#    Gunakan tool koordinat di plotly (misalnya hover over image) untuk mendapatkan nilai ini.
 # ==============================================================================
+# !PENTING! Nilai koordinat di bawah ini adalah contoh dan *HARUS* dikalibrasi 
+# berdasarkan gambar diagram Anda yang sebenarnya agar kotak sorotan tepat sasaran.
 process_phases = [
     # --- FASE 1: PENERIMAAN TBS BARENGAN ---
     [
         {
-            'label': 'Laju Penerimaan TBS Kebun Sendiri',
-            'tank_area': [177, 121, 313, 210]
+            'label': 'Frequency Gangguan',
+            # Ganti dengan koordinat [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir] kotak "frequency gangguan"
+            'tank_area': [100, 100, 200, 150] 
         },
         {
-            'label': 'Laju Penerimaan TBS Mitra',
-            'tank_area': [192, 485, 332, 610]
+            'label': 'Efektif Desain',
+            # Ganti dengan koordinat [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir] kotak "efektif desain"
+            'tank_area': [100, 200, 200, 250] 
+        },
+        {
+            'label': 'Biaya Rugi Downtime',
+            # Ganti dengan koordinat [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir] kotak "biaya rugi downtime"
+            'tank_area': [300, 100, 400, 150]
+        },
+        {
+            'label': 'Biaya Maintenance',
+            # Ganti dengan koordinat [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir] kotak "biaya maintenance"
+            'tank_area': [300, 200, 400, 250]
         }
     ],
     
     # --- FASE 2: STOCK PKS BARENGAN ---
     [
         {
-            'label': 'Stock PKS Kebun Sendiri',
-            'tank_area': [326, 110, 470, 200]
+            'label': 'Laju Terjadi Trip',
+            # Ganti dengan koordinat [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir] kotak "laju terjadi trip"
+            'tank_area': [500, 100, 600, 150]
         },
         {
-            'label': 'Stock PKS Mitra',
-            'tank_area': [338, 483, 451, 584]
+            'label': 'Aliran Biaya Operasional',
+            # Ganti dengan koordinat [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir] kotak "aliran biaya operasional"
+            'tank_area': [500, 200, 600, 250]
         }
     ],
     
     # --- FASE 3: PROSES MASUK KE TANGKI CPO BARENGAN ---
     [
         {
-            'label': 'Stock CPO Kebun Sendiri',
-            'tank_area': [620, 40, 749, 108]
+            'label': 'Kumulatif Trip',
+            # Ganti dengan koordinat [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir] kotak "Kumulatif Trip"
+            'tank_area': [700, 100, 800, 150]
         },
         {
-            'label': 'Stock CPO Mitra',
-            'tank_area': [605, 405, 745, 490]
-        }
-    ],
-    
-    # --- FASE 4: PROSES MASUK KE STORAGE KERNEL BARENGAN ---
-    [
-        {
-            'label': 'Stock Palm Kernel Kebun Sendiri',
-            'tank_area': [625, 125, 763, 200]
-        },
-        {
-            'label': 'Stock Palm Kernel Mitra',
-            'tank_area': [615, 495, 755, 583]
-        }
-    ],
-
-    # --- FASE 5: OUTPUT TRANSMISI TOTAL BARENGAN ---
-    [
-        {
-            'label': 'Total CPO Yang Dihasilkan',
-            'tank_area': [1078, 128, 1268, 310]
-        },
-        {
-            'label': 'Total Palm Kernel Yang Dihasilkan',
-            'tank_area': [1092, 448, 1270, 619]
+            'label': 'Total Cost Ownership',
+            # Ganti dengan koordinat [X_Mulai, Y_Mulai, X_Akhir, Y_Akhir] kotak "Total Cost Ownership"
+            'tank_area': [700, 200, 800, 250]
         }
     ]
 ]
