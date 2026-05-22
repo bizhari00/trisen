@@ -1,8 +1,3 @@
-Tentu, ini adalah kode yang sudah dibersihkan. Semua logika yang berkaitan dengan Mode Kalibrasi, checkbox di navbar, sumbu/grid overlay, serta kotak hijau animasi (fig.add_shape & fig.add_scatter) telah dihapus.
-
-Sekarang kodenya murni memuat gambar background SFDintro.png secara bersih dalam loop animasi (jika Anda masih membutuhkan transisi fase gambar murni), tanpa gangguan visual grid maupun komponen kalibrasi.
-
-Python
 import streamlit as st
 import plotly.express as px
 from PIL import Image
@@ -39,7 +34,7 @@ st.markdown(
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. NAVIGASI & JUDUL SEBARIS (Tanpa Checkbox Kalibrasi)
+# 3. NAVIGASI & JUDUL SEBARIS
 # ==============================================================================
 col_btn, col_title = st.columns([1.2, 2.8])
 
@@ -56,7 +51,7 @@ st.divider()
 # ==============================================================================
 try:
     img = Image.open("SFDintro.png") 
-} except FileNotFoundError:
+except FileNotFoundError:
     st.error("File 'SFDintro.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
     st.stop()
 
@@ -65,15 +60,13 @@ try:
 # ==============================================================================
 placeholder = st.empty()
 render_count = 0
-
-# Jumlah total fase (berdasarkan struktur data Anda sebelumnya ada 3 fase)
 total_phases = 3 
 
 while True:
     for phase_index in range(total_phases):
         fig = px.imshow(img)
         
-        # Sembunyikan Grid Aksis secara total untuk estetika bersih
+        # Sembunyikan Grid Aksis secara total
         fig.update_xaxes(visible=False, showgrid=False)
         fig.update_yaxes(visible=False, showgrid=False)
         
@@ -89,7 +82,7 @@ while True:
                 fig, 
                 use_container_width=True, 
                 config={
-                    'displayModeBar': False, # Mematikan toolbar Plotly agar bersih
+                    'displayModeBar': False, 
                     'responsive': True
                 }, 
                 key=f"pks_live_mode_{render_count}"
