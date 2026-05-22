@@ -80,8 +80,8 @@ process_phases = [
     
     # --- FASE 3: AKUMULASI STOK UTAMA (STOCKS) ---
     [
-        {'label': 'Kumulatif Trip', 'tank_area': [700, 88, 925, 165]},
-        {'label': 'Total Cost Ownership', 'tank_area': [700, 200, 800, 250]}
+        {'label': 'Cumulative Trip Frequency', 'tank_area': [465, 75, 606, 161]},
+        {'label': 'Total Cost Ownership', 'tank_area': [621, 80, 751, 177]}
     ]
 ]
 
