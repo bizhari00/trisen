@@ -41,7 +41,7 @@ st.markdown("<br><br>", unsafe_allow_html=True)
 col_btn, col_title = st.columns([1.2, 2.8])
 
 with col_btn:
-    st.link_button("🏠 ke Menu Simulasi", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=True)
+    st.link_button("🏠Tri-Sen Technology Open Here", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=True)
 
 with col_title:
     st.subheader("Maintenance-Operational Cost Diagram")
