@@ -66,7 +66,7 @@ except FileNotFoundError:
 process_phases = [
     # --- FASE 1: PARAMETER INPUT & INTERVENSI HULU ---
     [
-        {'label': 'Frequency Gangguan', 'tank_area': [100, 100, 200, 150]},
+        {'label': 'Disturbance Occurrence', 'tank_area': [152, 40, 268, 94]},
         {'label': 'Efektif Desain', 'tank_area': [100, 200, 200, 250]},
         {'label': 'Biaya Rugi Downtime', 'tank_area': [300, 100, 400, 150]},
         {'label': 'Biaya Maintenance', 'tank_area': [300, 200, 400, 250]}
