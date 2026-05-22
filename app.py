@@ -66,22 +66,22 @@ except FileNotFoundError:
 process_phases = [
     # --- FASE 1: PARAMETER INPUT & INTERVENSI HULU ---
     [
-        {'label': 'Disturbance', 'tank_area': [152, 40, 268, 94]},
-        {'label': 'Design Effectiveness', 'tank_area': [74, 155, 203, 231]},
-        {'label': 'Downtime Loss Cost', 'tank_area': [720, 232, 851, 293]},
-        {'label': 'Maintenance Cost', 'tank_area': [872, 18, 996, 83]}
+        {'label': 'Disturb', 'tank_area': [152, 40, 268, 94]},
+        {'label': 'Design', 'tank_area': [74, 155, 203, 231]},
+        {'label': 'Downtime', 'tank_area': [720, 232, 851, 293]},
+        {'label': 'Maint Cost', 'tank_area': [872, 18, 996, 83]}
     ],
     
     # --- FASE 2: LAJU ALIRAN SISTEM (FLOWS) ---
     [
-        {'label': 'Trip Occurrence Rate', 'tank_area': [271, 93, 428, 169]},
-        {'label': 'Continuous Cost Flow', 'tank_area': [779, 88, 925, 165]}
+        {'label': 'Trip Rate', 'tank_area': [271, 93, 428, 169]},
+        {'label': 'Cost Flow', 'tank_area': [779, 88, 925, 165]}
     ],
     
     # --- FASE 3: AKUMULASI STOK UTAMA (STOCKS) ---
     [
-        {'label': 'Cumulative Trip Frequency', 'tank_area': [465, 75, 606, 161]},
-        {'label': 'Total Cost Ownership', 'tank_area': [621, 80, 751, 177]}
+        {'label': 'Cumulative', 'tank_area': [465, 75, 606, 161]},
+        {'label': 'Total Cost', 'tank_area': [621, 80, 751, 177]}
     ]
 ]
 
