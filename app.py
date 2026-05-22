@@ -1,10 +1,5 @@
-Ah, maaf! Jadi maksudnya Anda ingin tetap ada animasi kotak hijau berkedip bergantian sesuai fase, tapi hanya menghilangkan grid aksis (angka di pinggir gambar) dan tombol sakelar kalibrasi saja?
 
-Berarti koordinat process_phases yang sebelumnya justru wajib kita masukkan lagi agar kotak hijaunya tahu harus muncul di mana.
 
-Ini kode yang benar. Grid dan menu kalibrasi sudah bersih total, tapi animasi sorotan kotak hijau jalan lagi seperti semula:
-
-Python
 import streamlit as st
 import plotly.express as px
 from PIL import Image
