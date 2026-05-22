@@ -74,7 +74,7 @@ process_phases = [
     
     # --- FASE 2: LAJU ALIRAN SISTEM (FLOWS) ---
     [
-        {'label': 'Laju Terjadi Trip', 'tank_area': [500, 100, 600, 150]},
+        {'label': 'Trip Occurrence Rate', 'tank_area': [271, 93, 428, 169]},
         {'label': 'Aliran Biaya Operasional', 'tank_area': [500, 200, 600, 250]}
     ],
     
