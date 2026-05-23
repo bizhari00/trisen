@@ -73,7 +73,7 @@ st.markdown(
 
     /* 4. Mengatur Teks Judul Diagram Agar Selaras */
     .custom-title {
-        font-size: 18px !important; 
+        font-size: 20px !important; 
         font-weight: 500 !important;
         color: #1E293B;
         margin-top: 8px; /* Disesuaikan agar sejajar lurus vertikal dengan tombol baru */
