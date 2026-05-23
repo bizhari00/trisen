@@ -1,3 +1,4 @@
+
 import streamlit as st
 import plotly.express as px
 from PIL import Image
@@ -39,18 +40,17 @@ st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown(
     """
     <style>
-    /* 1. Mengatur Ukuran Kotak Tombol Agar Seimbang (Tidak Terlalu Besar) */
+    /* 1. Mengatur Ukuran Kotak Tombol Agar Seimbang */
     .stLinkButton > a {
         background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%) !important;
         color: #FFFFFF !important;
         border: none !important;
-        border-radius: 8px !important; /* Lengkungan sedikit dikurangi agar lebih formal */
-        padding: 8px 20px !important; /* Padding vertikal dikurangi agar kotak lebih tipis */
+        border-radius: 8px !important; 
+        padding: 8px 20px !important; 
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25) !important;
         transition: all 0.3s ease-in-out !important;
         text-decoration: none !important;
         
-        /* KUNCI KESEIMBANGAN: Batasi lebar maksimal tombol */
         display: inline-flex !important;
         width: auto !important;
         max-width: 320px !important; 
@@ -58,7 +58,7 @@ st.markdown(
 
     /* 2. Menyesuaikan Ukuran Font Tombol */
     .stLinkButton > a p {
-        font-size: 16px !important; /* Ukuran diturunkan ke 16px agar proporsional */
+        font-size: 16px !important; 
         font-weight: bold !important;
         color: #FFFFFF !important;
         letter-spacing: 0.5px !important;
@@ -76,7 +76,7 @@ st.markdown(
         font-size: 20px !important; 
         font-weight: 500 !important;
         color: #1E293B;
-        margin-top: 8px; /* Disesuaikan agar sejajar lurus vertikal dengan tombol baru */
+        margin-top: 8px; 
         font-family: 'Segoe UI', Arial, sans-serif;
     }
     </style>
@@ -84,11 +84,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Menggunakan kembali rasio kolom asli agar pembagian ruangnya pas
 col_btn, col_title = st.columns([1.2, 2.8])
 
 with col_btn:
-    # use_container_width diubah ke False agar lebarnya mengikuti aturan CSS max-width di atas
     st.link_button("🏠 Tri-Sen Technology Open Here", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=False)
 
 with col_title:
@@ -100,38 +98,47 @@ st.divider()
 # 4. MEMUAT BACKGROUND IMAGE PKS
 # ==============================================================================
 try:
-    img = Image.open("SFDintro.png") 
+    img = Image.open("qcd.png") 
 except FileNotFoundError:
-    st.error("File 'SFDintro.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
+    st.error("File 'qcd.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
     st.stop()
 
 # ==============================================================================
-# 5. DATA KOORDINAT XY (Untuk Animasi Sorotan Hijau)
+# 5. DATA KOORDINAT XY (Atas Kotak, Bawah Lingkaran/Circle)
 # ==============================================================================
 process_phases = [
-    # --- FASE 1: PARAMETER INPUT & INTERVENSI HULU ---
+    # --- FASE 1: PARAMETER INPUT (ATAS) + LINGKARAN TIME (BAWAH) ---
     [
-        {'label': '', 'tank_area': [152, 40, 268, 94]},
-        {'label': '', 'tank_area': [74, 155, 203, 231]},
-        {'label': '', 'tank_area': [720, 232, 851, 293]},
-        {'label': '', 'tank_area': [872, 18, 996, 83]}
+        # Koordinat Asli Atas (Bentuk Kotak)
+        {'label': '', 'shape_type': 'rect', 'tank_area': [152, 40, 268, 94]},
+        {'label': '', 'shape_type': 'rect', 'tank_area': [74, 155, 203, 231]},
+        {'label': '', 'shape_type': 'rect', 'tank_area': [720, 232, 851, 293]},
+        {'label': '', 'shape_type': 'rect', 'tank_area': [872, 18, 996, 83]},
+        # Tambahan Bawah (Bentuk Lingkaran/Circle)
+        {'label': '', 'shape_type': 'circle', 'tank_area': [539,388,700,536]} 
     ],
     
-    # --- FASE 2: LAJU ALIRAN SISTEM (FLOWS) ---
+    # --- FASE 2: LAJU ALIRAN/FLOWS (ATAS) + LINGKARAN QUALITY (BAWAH) ---
     [
-        {'label': '', 'tank_area': [271, 93, 428, 169]},
-        {'label': '', 'tank_area': [779, 88, 925, 165]}
+        # Koordinat Asli Atas (Bentuk Kotak)
+        {'label': '', 'shape_type': 'rect', 'tank_area': [271, 93, 428, 169]},
+        {'label': '', 'shape_type': 'rect', 'tank_area': [779, 88, 925, 165]},
+        # Tambahan Bawah (Bentuk Lingkaran/Circle)
+        {'label': '', 'shape_type': 'circle', 'tank_area': [600,505,763,655]} 
     ],
     
-    # --- FASE 3: AKUMULASI STOK UTAMA (STOCKS) ---
+    # --- FASE 3: AKUMULASI STOK/STOCKS (ATAS) + LINGKARAN COST (BAWAH) ---
     [
-        {'label': '', 'tank_area': [465, 75, 606, 161]},
-        {'label': '', 'tank_area': [621, 80, 751, 177]}
+        # Koordinat Asli Atas (Bentuk Kotak)
+        {'label': '', 'shape_type': 'rect', 'tank_area': [465, 75, 606, 161]},
+        {'label': '', 'shape_type': 'rect', 'tank_area': [621, 80, 751, 177]},
+        # Tambahan Bawah (Bentuk Lingkaran/Circle)
+        {'label': '', 'shape_type': 'circle', 'tank_area': [475,500,641,656]} 
     ]
 ]
 
 # ==============================================================================
-# 6. RENDERING LOGIC (MODE NORMAL + ANIMASI TANPA GRID)
+# 6. RENDERING LOGIC (DENGAN WARNA TAJAM KHUSUS LINGKARAN)
 # ==============================================================================
 placeholder = st.empty()
 render_count = 0
@@ -144,23 +151,34 @@ while True:
         fig.update_xaxes(visible=False, showgrid=False)
         fig.update_yaxes(visible=False, showgrid=False)
         
-        # Gambar ulang kotak animasi hijau di tiap fase
+        # Gambar ulang kotak/lingkaran animasi di tiap fase
         for component in phase:
             area = component['tank_area']
+            shape = component.get('shape_type', 'rect')
             
-            # 1. Menggambar Kotak Sorotan Hijau
+            # ATUR WARNA DI SINI: Jika bentuknya lingkaran, buat warnanya jauh lebih tajam
+            if shape == 'circle':
+                border_color = "Cyan"       # Warna garis luar cyan neon yang sangat tajam
+                border_width = 5            # Garis dipertebal dari 3 menjadi 5 agar sangat mencolok
+                fill_color = "rgba(0, 255, 255, 0.4)" # Isi dalam semi-transparan cyan terang
+            else:
+                border_color = "LimeGreen"  # Warna kotak atas tetap hijau asli Anda
+                border_width = 3
+                fill_color = "rgba(0, 255, 0, 0.35)"
+            
+            # Menggambar Bentuk Sorotan Dinamis
             fig.add_shape(
-                type="rect", 
+                type=shape, 
                 x0=area[0], y0=area[1], x1=area[2], y1=area[3],
-                fillcolor="rgba(0, 255, 0, 0.35)",
-                line=dict(color="LimeGreen", width=3),
+                fillcolor=fill_color,
+                line=dict(color=border_color, width=border_width),
             )
             
-            # 2. Koordinat Label Dinamis (Jika nanti ingin diberi teks label)
+            # Koordinat Label Dinamis
             text_x = (area[0] + area[2]) / 2
             text_y = area[3] + 20
             
-            # 3. Tempel Label Teks
+            # Tempel Label Teks
             fig.add_scatter(
                 x=[text_x], y=[text_y], 
                 mode="text",
@@ -171,7 +189,7 @@ while True:
         
         fig.update_layout(
             margin=dict(l=0, r=0, t=15, b=0), 
-            height=550,
+            height=720, 
             autosize=True,
             showlegend=False
         )
@@ -181,7 +199,7 @@ while True:
                 fig, 
                 use_container_width=True, 
                 config={
-                    'displayModeBar': False, # Toolbar atas plotly dimatikan agar bersih
+                    'displayModeBar': False, 
                     'responsive': True
                 }, 
                 key=f"pks_live_mode_{render_count}"
