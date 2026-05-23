@@ -1,8 +1,4 @@
-Tentu, ini adalah kode full script yang sudah digabungkan dengan modifikasi gaya (styling) pada judul dan tombol sesuai permintaan Anda.
 
-Anda bisa langsung menyalin seluruh kode di bawah ini:
-
-Python
 import streamlit as st
 import plotly.express as px
 from PIL import Image
