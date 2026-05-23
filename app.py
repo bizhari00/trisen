@@ -133,7 +133,7 @@ process_phases = [
         {'label': '', 'shape_type': 'rect', 'tank_area': [465, 75, 606, 161]},
         {'label': '', 'shape_type': 'rect', 'tank_area': [621, 80, 751, 177]},
         # Tambahan Bawah (Bentuk Lingkaran/Circle)
-        {'label': '', 'shape_type': 'circle', 'tank_area': [475,500,641,656]} 
+        {'label': '', 'shape_type': 'circle', 'tank_area': [475,500,635,656]} 
     ]
 ]
 
