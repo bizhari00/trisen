@@ -1,4 +1,3 @@
-
 import streamlit as st
 import plotly.express as px
 from PIL import Image
@@ -98,47 +97,47 @@ st.divider()
 # 4. MEMUAT BACKGROUND IMAGE PKS
 # ==============================================================================
 try:
-    img = Image.open("qcd.png") 
+    img = Image.open("qcd1.png") 
 except FileNotFoundError:
-    st.error("File 'qcd.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
+    st.error("File 'qcd1.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
     st.stop()
 
 # ==============================================================================
-# 5. DATA KOORDINAT XY (Atas Kotak, Bawah Lingkaran/Circle)
+# 5. DATA KOORDINAT XY (Atas Kotak, Bawah Lingkaran/Circle/Kotak Lembut)
 # ==============================================================================
 process_phases = [
-    # --- FASE 1: PARAMETER INPUT (ATAS) + LINGKARAN TIME (BAWAH) ---
+    # --- FASE 1: PARAMETER INPUT (ATAS) + KOTAK BAWAH ---
     [
         # Koordinat Asli Atas (Bentuk Kotak)
-        {'label': '', 'shape_type': 'rect', 'tank_area': [152, 40, 268, 94]},
-        {'label': '', 'shape_type': 'rect', 'tank_area': [74, 155, 203, 231]},
-        {'label': '', 'shape_type': 'rect', 'tank_area': [720, 232, 851, 293]},
-        {'label': '', 'shape_type': 'rect', 'tank_area': [872, 18, 996, 83]},
-        # Tambahan Bawah (Bentuk Lingkaran/Circle)
-        {'label': '', 'shape_type': 'circle', 'tank_area': [545,392,697,539]} 
+        {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [152, 40, 268, 94]},
+        {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [74, 155, 203, 231]},
+        {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [720, 232, 851, 293]},
+        {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [872, 18, 996, 83]},
+        # Kotak Bawah (Diberi penanda 'is_bottom': True agar warnanya lembut & tanpa garis)
+        {'label': '', 'shape_type': 'rect', 'is_bottom': True, 'tank_area': [130, 429, 468, 688]} 
     ],
     
-    # --- FASE 2: LAJU ALIRAN/FLOWS (ATAS) + LINGKARAN QUALITY (BAWAH) ---
+    # --- FASE 2: LAJU ALIRAN/FLOWS (ATAS) + KOTAK BAWAH ---
     [
         # Koordinat Asli Atas (Bentuk Kotak)
-        {'label': '', 'shape_type': 'rect', 'tank_area': [271, 93, 428, 169]},
-        {'label': '', 'shape_type': 'rect', 'tank_area': [779, 88, 925, 165]},
-        # Tambahan Bawah (Bentuk Lingkaran/Circle)
-        {'label': '', 'shape_type': 'circle', 'tank_area': [605,496,754,646]} 
+        {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [271, 93, 428, 169]},
+        {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [779, 88, 925, 165]},
+        # Kotak Bawah
+        {'label': '', 'shape_type': 'rect', 'is_bottom': True, 'tank_area': [479, 435, 802, 683]} 
     ],
     
-    # --- FASE 3: AKUMULASI STOK/STOCKS (ATAS) + LINGKARAN COST (BAWAH) ---
+    # --- FASE 3: AKUMULASI STOK/STOCKS (ATAS) + KOTAK BAWAH ---
     [
         # Koordinat Asli Atas (Bentuk Kotak)
-        {'label': '', 'shape_type': 'rect', 'tank_area': [465, 75, 606, 161]},
-        {'label': '', 'shape_type': 'rect', 'tank_area': [621, 80, 751, 177]},
-        # Tambahan Bawah (Bentuk Lingkaran/Circle)
-        {'label': '', 'shape_type': 'circle', 'tank_area': [484,500,633,646]} 
+        {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [465, 75, 606, 161]},
+        {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [621, 80, 751, 177]},
+        # Kotak Bawah
+        {'label': '', 'shape_type': 'rect', 'is_bottom': True, 'tank_area': [816, 429, 1181, 690]} 
     ]
 ]
 
 # ==============================================================================
-# 6. RENDERING LOGIC (DENGAN WARNA TAJAM KHUSUS LINGKARAN)
+# 6. RENDERING LOGIC
 # ==============================================================================
 placeholder = st.empty()
 render_count = 0
@@ -151,18 +150,21 @@ while True:
         fig.update_xaxes(visible=False, showgrid=False)
         fig.update_yaxes(visible=False, showgrid=False)
         
-        # Gambar ulang kotak/lingkaran animasi di tiap fase
+        # Gambar ulang kotak animasi di tiap fase
         for component in phase:
             area = component['tank_area']
             shape = component.get('shape_type', 'rect')
+            is_bottom = component.get('is_bottom', False)
             
-            # ATUR WARNA DI SINI: Jika bentuknya lingkaran, buat warnanya jauh lebih tajam
-            if shape == 'circle':
-                border_color = "Cyan"       # Warna garis luar cyan neon yang sangat tajam
-                border_width = 5            # Garis dipertebal dari 3 menjadi 5 agar sangat mencolok
-                fill_color = "rgba(0, 255, 255, 0.4)" # Isi dalam semi-transparan cyan terang
+            # PENGATURAN WARNA BARU DI SINI:
+            if is_bottom:
+                # Kotak bawah: tanpa garis tepi (width=0) & warna hijau pastel yang sangat lembut (alpha 0.15)
+                border_color = "rgba(0,0,0,0)"
+                border_width = 0
+                fill_color = "rgba(144, 238, 144, 0.15)" 
             else:
-                border_color = "LimeGreen"  # Warna kotak atas tetap hijau asli Anda
+                # Kotak atas tetap mempertahankan warna hijau asli Anda
+                border_color = "LimeGreen" 
                 border_width = 3
                 fill_color = "rgba(0, 255, 0, 0.35)"
             
