@@ -34,44 +34,49 @@ st.markdown(
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. NAVIGASI & JUDUL SEBARIS (Custom Design Button & Title)
+# 3. NAVIGASI & JUDUL SEBARIS (Balanced Design Button & Title)
 # ==============================================================================
 st.markdown(
     """
     <style>
-    /* 1. Merombak Total Desain Kotak Tombol Tautan */
+    /* 1. Mengatur Ukuran Kotak Tombol Agar Seimbang (Tidak Terlalu Besar) */
     .stLinkButton > a {
-        background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%) !important; /* Warna gradasi biru premium */
-        color: #FFFFFF !important; /* Warna teks putih bersih */
+        background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%) !important;
+        color: #FFFFFF !important;
         border: none !important;
-        border-radius: 12px !important; /* Membuat sudut kotak melengkung modern */
-        padding: 12px 24px !important;
-        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important; /* Efek bayangan corak bercahaya */
-        transition: all 0.3s ease-in-out !important; /* Efek organisasi transisi halus */
+        border-radius: 8px !important; /* Lengkungan sedikit dikurangi agar lebih formal */
+        padding: 8px 20px !important; /* Padding vertikal dikurangi agar kotak lebih tipis */
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25) !important;
+        transition: all 0.3s ease-in-out !important;
         text-decoration: none !important;
+        
+        /* KUNCI KESEIMBANGAN: Batasi lebar maksimal tombol */
+        display: inline-flex !important;
+        width: auto !important;
+        max-width: 320px !important; 
     }
 
-    /* 2. Mengatur Spesifikasi Font di Dalam Tombol (Besar & Bold) */
+    /* 2. Menyesuaikan Ukuran Font Tombol */
     .stLinkButton > a p {
-        font-size: 20px !important; 
+        font-size: 16px !important; /* Ukuran diturunkan ke 16px agar proporsional */
         font-weight: bold !important;
         color: #FFFFFF !important;
-        letter-spacing: 0.5px !important; /* Jarak antar huruf diperlebar sedikit */
+        letter-spacing: 0.5px !important;
     }
 
-    /* 3. Efek Corak Interaktif Saat Tombol Disorot (Hover Effect) */
+    /* 3. Efek Hover */
     .stLinkButton > a:hover {
-        background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%) !important; /* Gradasi warna bergeser */
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5) !important; /* Bayangan makin kuat */
-        transform: translateY(-2px) !important; /* Efek tombol sedikit terangkat naik */
+        background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%) !important;
+        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4) !important;
+        transform: translateY(-1px) !important;
     }
 
-    /* 4. Mengatur Teks Judul Diagram Agar Berukuran Regular */
+    /* 4. Mengatur Teks Judul Diagram Agar Selaras */
     .custom-title {
         font-size: 18px !important; 
-        font-weight: 500 !important; /* Menggunakan ketebalan medium agar seimbang */
+        font-weight: 500 !important;
         color: #1E293B;
-        margin-top: 14px; /* Menyelaraskan tinggi vertikal secara presisi */
+        margin-top: 8px; /* Disesuaikan agar sejajar lurus vertikal dengan tombol baru */
         font-family: 'Segoe UI', Arial, sans-serif;
     }
     </style>
@@ -79,11 +84,12 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Menggunakan rasio kolom 1.6 dan 2.4 agar tombol megah memiliki ruang optimal
-col_btn, col_title = st.columns([1.6, 2.4])
+# Menggunakan kembali rasio kolom asli agar pembagian ruangnya pas
+col_btn, col_title = st.columns([1.2, 2.8])
 
 with col_btn:
-    st.link_button("🏠 Tri-Sen Technology Open Here", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=True)
+    # use_container_width diubah ke False agar lebarnya mengikuti aturan CSS max-width di atas
+    st.link_button("🏠 Tri-Sen Technology Open Here", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=False)
 
 with col_title:
     st.markdown('<p class="custom-title">Maintenance-Operational Cost Diagram</p>', unsafe_allow_html=True)
