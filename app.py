@@ -1,4 +1,3 @@
-
 import streamlit as st
 import plotly.express as px
 from PIL import Image
@@ -35,38 +34,58 @@ st.markdown(
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. NAVIGASI & JUDUL SEBARIS (Custom Font Size & Style)
+# 3. NAVIGASI & JUDUL SEBARIS (Custom Design Button & Title)
 # ==============================================================================
-# Menambahkan CSS custom untuk memperbesar & menebalkan tombol Tri-Sen,
-# serta membuat font judul "Maintenance-Operational Cost Diagram" menjadi regular.
 st.markdown(
     """
     <style>
-    /* Menargetkan teks di dalam link button agar Besar & Bold */
-    .stLinkButton > a p {
-        font-size: 16px !important; 
-        font-weight: bold !important; 
+    /* 1. Merombak Total Desain Kotak Tombol Tautan */
+    .stLinkButton > a {
+        background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%) !important; /* Warna gradasi biru premium */
+        color: #FFFFFF !important; /* Warna teks putih bersih */
+        border: none !important;
+        border-radius: 12px !important; /* Membuat sudut kotak melengkung modern */
+        padding: 12px 24px !important;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important; /* Efek bayangan corak bercahaya */
+        transition: all 0.3s ease-in-out !important; /* Efek organisasi transisi halus */
+        text-decoration: none !important;
     }
-    /* Mengatur teks judul diagram agar berukuran Regular */
+
+    /* 2. Mengatur Spesifikasi Font di Dalam Tombol (Besar & Bold) */
+    .stLinkButton > a p {
+        font-size: 20px !important; 
+        font-weight: bold !important;
+        color: #FFFFFF !important;
+        letter-spacing: 0.5px !important; /* Jarak antar huruf diperlebar sedikit */
+    }
+
+    /* 3. Efek Corak Interaktif Saat Tombol Disorot (Hover Effect) */
+    .stLinkButton > a:hover {
+        background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%) !important; /* Gradasi warna bergeser */
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5) !important; /* Bayangan makin kuat */
+        transform: translateY(-2px) !important; /* Efek tombol sedikit terangkat naik */
+    }
+
+    /* 4. Mengatur Teks Judul Diagram Agar Berukuran Regular */
     .custom-title {
         font-size: 18px !important; 
-        font-weight: normal !important; 
-        color: #31333F;
-        margin-top: 10px; /* Menyelaraskan tinggi vertikal dengan tombol */
+        font-weight: 500 !important; /* Menggunakan ketebalan medium agar seimbang */
+        color: #1E293B;
+        margin-top: 14px; /* Menyelaraskan tinggi vertikal secara presisi */
+        font-family: 'Segoe UI', Arial, sans-serif;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Rasio kolom disesuaikan ke [1.5, 2.5] agar tombol yang membesar tidak terpotong
-col_btn, col_title = st.columns([1.5, 2.5])
+# Menggunakan rasio kolom 1.6 dan 2.4 agar tombol megah memiliki ruang optimal
+col_btn, col_title = st.columns([1.6, 2.4])
 
 with col_btn:
     st.link_button("🏠 Tri-Sen Technology Open Here", "https://forio.com/app/trisen_syntegra/trisen2", use_container_width=True)
 
 with col_title:
-    # Menggunakan HTML markdown khusus menggantikan st.subheader agar teks bisa diatur regular
     st.markdown('<p class="custom-title">Maintenance-Operational Cost Diagram</p>', unsafe_allow_html=True)
 
 st.divider()
