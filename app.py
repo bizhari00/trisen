@@ -44,12 +44,12 @@ st.markdown(
     <style>
     /* Menargetkan teks di dalam link button agar Besar & Bold */
     .stLinkButton > a p {
-        font-size: 20px !important; 
+        font-size: 16px !important; 
         font-weight: bold !important; 
     }
     /* Mengatur teks judul diagram agar berukuran Regular */
     .custom-title {
-        font-size: 16px !important; 
+        font-size: 18px !important; 
         font-weight: normal !important; 
         color: #31333F;
         margin-top: 10px; /* Menyelaraskan tinggi vertikal dengan tombol */
