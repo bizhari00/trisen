@@ -115,7 +115,7 @@ process_phases = [
         {'label': '', 'shape_type': 'rect', 'tank_area': [720, 232, 851, 293]},
         {'label': '', 'shape_type': 'rect', 'tank_area': [872, 18, 996, 83]},
         # Tambahan Bawah (Bentuk Lingkaran/Circle)
-        {'label': 'A', 'shape_type': 'circle', 'tank_area': [539,388,700,540]} 
+        {'label': 'A', 'shape_type': 'circle', 'tank_area': [545,392,697,539]} 
     ],
     
     # --- FASE 2: LAJU ALIRAN/FLOWS (ATAS) + LINGKARAN QUALITY (BAWAH) ---
