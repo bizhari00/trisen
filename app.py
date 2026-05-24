@@ -97,7 +97,7 @@ st.divider()
 # 4. MEMUAT BACKGROUND IMAGE PKS
 # ==============================================================================
 try:
-    img = Image.open("qcd1.png") 
+    img = Image.open("qcd.png") 
 except FileNotFoundError:
     st.error("File 'qcd1.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
     st.stop()
