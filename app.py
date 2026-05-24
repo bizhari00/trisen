@@ -99,7 +99,7 @@ st.divider()
 try:
     img = Image.open("qcd.png") 
 except FileNotFoundError:
-    st.error("File 'qcd1.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
+    st.error("File 'qcd.png' tidak ditemukan. Pastikan file gambar diagram Anda ada di root repository GitHub Anda dan namanya sesuai.")
     st.stop()
 
 # ==============================================================================
@@ -113,7 +113,7 @@ process_phases = [
         {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [74, 155, 203, 231]},
         {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [720, 232, 851, 293]},
         {'label': '', 'shape_type': 'rect', 'is_bottom': False, 'tank_area': [872, 18, 996, 83]},
-        # Kotak Bawah (Diberi penanda 'is_bottom': True agar warnanya lembut & tanpa garis)
+        # Kotak Bawah
         {'label': '', 'shape_type': 'rect', 'is_bottom': True, 'tank_area': [130, 429, 468, 688]} 
     ],
     
@@ -156,17 +156,17 @@ while True:
             shape = component.get('shape_type', 'rect')
             is_bottom = component.get('is_bottom', False)
             
-            # PENGATURAN WARNA BARU DI SINI:
+            # PENGATURAN WARNA EMAS BARU DI SINI:
             if is_bottom:
-                # Kotak bawah: tanpa garis tepi (width=0) & warna hijau pastel yang sangat lembut (alpha 0.15)
+                # Kotak bawah: tanpa garis tepi & warna emas pastel super lembut transparan
                 border_color = "rgba(0,0,0,0)"
                 border_width = 0
-                fill_color = "rgba(144, 238, 144, 0.15)" 
+                fill_color = "rgba(212, 175, 55, 0.15)" 
             else:
-                # Kotak atas tetap mempertahankan warna hijau asli Anda
-                border_color = "LimeGreen" 
+                # Kotak atas (ber-border): border emas tua tegas & isi warna emas solid transparan
+                border_color = "DarkGoldenRod" 
                 border_width = 3
-                fill_color = "rgba(0, 255, 0, 0.35)"
+                fill_color = "rgba(212, 175, 55, 0.4)"
             
             # Menggambar Bentuk Sorotan Dinamis
             fig.add_shape(
