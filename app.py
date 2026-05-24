@@ -156,24 +156,20 @@ while True:
             shape = component.get('shape_type', 'rect')
             is_bottom = component.get('is_bottom', False)
             
-            # PENGATURAN WARNA EMAS BARU DI SINI:
+            # PENGATURAN WARNA EMAS TANPA BORDER DI SINI:
             if is_bottom:
-                # Kotak bawah: tanpa garis tepi & warna emas pastel super lembut transparan
-                border_color = "rgba(0,0,0,0)"
-                border_width = 0
+                # Kotak bawah: tanpa garis tepi & warna emas pastel lembut (alpha 0.15 agar lebih transparan)
                 fill_color = "rgba(212, 175, 55, 0.15)" 
             else:
-                # Kotak atas (ber-border): border emas tua tegas & isi warna emas solid transparan
-                border_color = "DarkGoldenRod" 
-                border_width = 3
-                fill_color = "rgba(212, 175, 55, 0.4)"
+                # Kotak atas: tanpa garis tepi & warna emas pastel standar (alpha 0.35)
+                fill_color = "rgba(212, 175, 55, 0.35)"
             
-            # Menggambar Bentuk Sorotan Dinamis
+            # Menggambar Bentuk Sorotan Dinamis (Semua width diubah menjadi 0)
             fig.add_shape(
                 type=shape, 
                 x0=area[0], y0=area[1], x1=area[2], y1=area[3],
                 fillcolor=fill_color,
-                line=dict(color=border_color, width=border_width),
+                line=dict(width=0), 
             )
             
             # Koordinat Label Dinamis
